@@ -1,0 +1,173 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "username": { "type": "string", "description": "e.g. @nixi" },
+        "photoURL": { "type": "string" },
+        "tier": { "type": "string", "enum": ["user", "admin", "viyie_plus"], "default": "user" },
+        "tiers": { "type": "array", "items": { "type": "string" }, "description": "Array of multiple tiers/badges" },
+        "badgeTitle": { "type": "string", "description": "Custom title given by admin" },
+        "profileBackdrop": { "type": "string", "description": "Custom banner URL" },
+        "profileSettings": {
+          "type": "object",
+          "properties": {
+            "showHistory": { "type": "boolean", "default": true },
+            "showFavorites": { "type": "boolean", "default": true },
+            "enableMusic": { "type": "boolean", "default": true },
+            "activeTrackIndex": { "type": "number", "default": 0 }
+          }
+        },
+        "favorites": { "type": "array", "description": "Array of movie/series IDs" },
+        "history": { "type": "array", "description": "Array of { movieId, watchedAt, progress }" },
+        "myList": { "type": "array", "description": "Array of movie/series IDs" },
+        "bio": { "type": "string", "maxLength": 70 },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Content": {
+      "title": "Content",
+      "description": "Movie or TV Series data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["movie", "tv"] },
+        "title": { "type": "string" },
+        "synopsis": { "type": "string" },
+        "releaseDate": { "type": "string" },
+        "rating": { "type": "number" },
+        "duration": { "type": "string" },
+        "posterUrl": { "type": "string" },
+        "heroPosterUrl": { "type": "string" },
+        "trailerUrl": { "type": "string" },
+        "streamingUrl": { "type": "string" },
+        "mainServerName": { "type": "string" },
+        "downloadLinks": { 
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "url": { "type": "string" }
+            }
+          }
+        },
+        "genres": { "type": "array" },
+        "isTrending": { "type": "boolean" },
+        "isNew": { "type": "boolean" },
+        "views": { "type": "number" },
+        "likesCount": { "type": "number", "default": 0 },
+        "episodes": { "type": "array", "description": "For TV series: { number, title, streamingUrl }" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "HeroSlot": {
+      "title": "Hero Slot",
+      "description": "Mapping for home page hero section (1-10)",
+      "type": "object",
+      "properties": {
+        "slotIndex": { "type": "number" },
+        "contentId": { "type": "string" }
+      }
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "User comments on content",
+      "type": "object",
+      "properties": {
+        "contentId": { "type": "string" },
+        "parentId": { "type": "string", "description": "ID of the comment being replied to" },
+        "uid": { "type": "string" },
+        "userName": { "type": "string" },
+        "userUsername": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "userTier": { "type": "string", "description": "Legacy single tier" },
+        "userTiers": { "type": "array", "items": { "type": "string" }, "description": "Multiple tiers for user" },
+        "userBadgeTitle": { "type": "string" },
+        "text": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    },
+    "SiteSettings": {
+      "title": "Site Settings",
+      "description": "Global application settings",
+      "type": "object",
+      "properties": {
+        "mainServerName": { "type": "string", "default": "Main Player" },
+        "linkvertiseToken": { "type": "string" },
+        "downloadTutorials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "url": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "Like": {
+      "title": "Like",
+      "description": "User like on content",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Asset": {
+      "title": "Asset",
+      "description": "Uploaded media elements for layout and background sync",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "size": { "type": "number" },
+        "createdAt": { "type": "number" },
+        "url": { "type": "string" },
+        "path": { "type": "string" }
+      },
+      "required": ["id", "name", "type", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "content/{contentId}": {
+      "schema": "Content",
+      "description": "Global movie/TV data"
+    },
+    "hero_slots/{slotId}": {
+      "schema": "HeroSlot",
+      "description": "Home hero carousel slots"
+    },
+    "comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Global comments feed"
+    },
+    "settings/{settingId}": {
+      "schema": "SiteSettings",
+      "description": "Global application settings"
+    },
+    "content/{contentId}/likes/{userId}": {
+      "schema": "Like",
+      "description": "Individual content likes"
+    },
+    "assets/{assetId}": {
+      "schema": "Asset",
+      "description": "Media manager dynamic library storage items"
+    }
+  }
+}

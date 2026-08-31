@@ -1,0 +1,14 @@
+# Dependency directories
+node_modules/
+
+# Build outputs and development caches
+dist/
+.vite/
+
+# Local configuration and secrets
+.env
+.env.local
+
+# Operating System files
+.DS_Store
+Thumbs.db

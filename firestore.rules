@@ -1,0 +1,157 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isEmailVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'firefuryggwp@gmail.com' ||
+        (
+          exists(/databases/$(database)/documents/settings/main) &&
+          request.auth.token.email != null &&
+          request.auth.token.email in get(/databases/$(database)/documents/settings/main).data.get('staffEmails', [])
+        ) ||
+        (
+          exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+          (
+            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'user') == 'admin' ||
+            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'user') == 'owner' ||
+            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('tier', 'user') == 'admin' ||
+            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('tier', 'user') == 'owner'
+          )
+        )
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128;
+    }
+
+    // --- Entity Validations ---
+
+    function isValidUser(data) {
+      return data.uid == request.auth.uid &&
+             data.email is string;
+    }
+
+    function isValidComment(data) {
+      return data.keys().hasAll(['contentId', 'uid', 'text', 'timestamp']) &&
+             data.uid == request.auth.uid &&
+             data.text is string && data.text.size() <= 1000;
+    }
+
+    function isValidLike(data) {
+      return data.keys().hasAll(['uid', 'createdAt']) &&
+             data.keys().size() == 2 &&
+             data.uid == request.auth.uid &&
+             data.createdAt == request.time;
+    }
+
+    // --- Match blocks ---
+
+    match /users/{userId} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      
+      allow create: if isOwner(userId) && isValidUser(request.resource.data);
+                      
+      allow update: if isOwner(userId) || isAdmin();
+                    
+      allow delete: if isAdmin();
+    }
+
+    match /content/{contentId} {
+      allow read: if true;
+      allow delete: if isAdmin();
+      allow create: if isAdmin();
+      allow update: if isAdmin() || (
+        // Action: Update Likes Count
+        (
+          isSignedIn() && 
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likesCount']) &&
+          (
+            (request.resource.data.likesCount == resource.data.get('likesCount', 0) + 1 && existsAfter(/databases/$(database)/documents/content/$(contentId)/likes/$(request.auth.uid))) ||
+            (request.resource.data.likesCount == resource.data.get('likesCount', 0) - 1 && !existsAfter(/databases/$(database)/documents/content/$(contentId)/likes/$(request.auth.uid)))
+          )
+        ) ||
+        // Action: Increment Views
+        (
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views', 'monthlyStats']) &&
+          request.resource.data.views == resource.data.get('views', 0) + 1
+        )
+      );
+
+      match /likes/{userId} {
+        allow read: if true;
+        allow create: if isOwner(userId) && isValidLike(request.resource.data) &&
+          getAfter(/databases/$(database)/documents/content/$(contentId)).data.likesCount == 
+          get(/databases/$(database)/documents/content/$(contentId)).data.get('likesCount', 0) + 1;
+        allow delete: if isOwner(userId) &&
+          getAfter(/databases/$(database)/documents/content/$(contentId)).data.likesCount == 
+          get(/databases/$(database)/documents/content/$(contentId)).data.get('likesCount', 0) - 1;
+      }
+    }
+
+    match /hero_slots/{slotId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /bottom_hero_slots/{slotId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /comments/{commentId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidComment(request.resource.data);
+      allow update: if isSignedIn() && (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes']) || isAdmin());
+      allow delete: if isSignedIn() && (isAdmin() || (resource != null && request.auth.uid == resource.data.uid));
+    }
+
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /reports/{reportId} {
+      allow create: if isSignedIn();
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /notifications/{notifId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /studios/{studioId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /quick_links/{linkId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /assets/{assetId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

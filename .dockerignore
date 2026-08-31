@@ -1,0 +1,9 @@
+# Exclude large directories and secrets from the Docker build context
+node_modules/
+android/
+dist/
+.vite/
+.env
+.env.local
+.git/
+.DS_Store

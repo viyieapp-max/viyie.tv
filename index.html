@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+    <meta name="monetag" content="92f1558d1b0bd09b3f0a41bd532c1b9e">
+    <meta name="monetag" content="e4769e290cbba9e0e7b5c27cba946f1b">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google" content="translate" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" type="image/png" href="/vacon11.png" />
+    <link rel="apple-touch-icon" href="/vacon11.png" />
+    <link rel="shortcut icon" href="/vacon11.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <title>VIYIE - Streaming Animation Movie & TV</title>
+    <style>
+      /* Hide default Google Translate banner / toolbar */
+      .goog-te-banner-frame,
+      .goog-te-banner,
+      .skiptranslate,
+      #goog-gt-tt,
+      .goog-tooltip,
+      .goog-tooltip:hover,
+      .goog-text-highlight {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        width: 0 !important;
+      }
+      body {
+        top: 0 !important;
+        position: static !important;
+      }
+      /* Hide google attribution & gadget UI */
+      .goog-te-gadget {
+        font-size: 0 !important;
+      }
+      .goog-logo-link,
+      .goog-te-gadget .goog-te-combo {
+        display: none !important;
+      }
+      /* Avoid highlights on translated text */
+      font {
+        background-color: transparent !important;
+        box-shadow: none !important;
+      }
+    </style>
+    <script>
+      // Prevent React from crashing when Google Translate replaces text nodes with <font> tags.
+      if (typeof Node === 'function' && Node.prototype) {
+        const originalRemoveChild = Node.prototype.removeChild;
+        Node.prototype.removeChild = function(child) {
+          if (child.parentNode !== this) {
+            return child;
+          }
+          return originalRemoveChild.apply(this, arguments);
+        };
+        const originalInsertBefore = Node.prototype.insertBefore;
+        Node.prototype.insertBefore = function(newNode, referenceNode) {
+          if (referenceNode && referenceNode.parentNode !== this) {
+            return newNode;
+          }
+          return originalInsertBefore.apply(this, arguments);
+        };
+      }
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"e5bd0313312b48ed9abe9312e2690ffe","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+    <meta name="fa0b0b2aeb421f6d19f3bb671d24a06ccd580a26" content="fa0b0b2aeb421f6d19f3bb671d24a06ccd580a26" />
+    <meta name="referrer" content="no-referrer" />
+  </head>
+  <body>
+    <!-- Hydrax Domain Replacement Script -->
+    <script src="https://iamcdn.net/players/replace-domain.js"></script>
+    <div id="root">
+      <!-- Fallback loading screen shown while JS loads/parses -->
+      <script>window.__bootStart = Date.now();</script>
+      <div id="boot-fallback" style="position:fixed;inset:0;background:#070404;display:flex;align-items:center;justify-content:center;z-index:10001">
+        <div style="position:relative;width:48px;height:48px;">
+          <div style="position:absolute;inset:0;border-radius:50%;border:4px solid rgba(239,68,68,0.1)"></div>
+          <div style="position:absolute;inset:0;border-radius:50%;border:4px solid #dc2626;border-top-color:transparent;border-right-color:transparent;animation:boot-spin 1s linear infinite"></div>
+        </div>
+      </div>
+      <style>
+        @keyframes boot-spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
+    </div>
+    <!-- Hidden container required by Google Translate widget -->
+    <div id="google_translate_element" style="opacity: 0; position: absolute; z-index: -1; pointer-events: none;"></div>
+    <noscript><div style="background:#0a0a0a;color:#fff;padding:40px;text-align:center;font-family:system-ui">JavaScript must be enabled to run VIYIE.</div></noscript>
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          { pageLanguage: 'en', autoDisplay: false },
+          'google_translate_element'
+        );
+      }
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+        });
+      }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

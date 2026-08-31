@@ -1,0 +1,21 @@
+# This file tells Google Cloud Build/Deploy which files to exclude
+# when packaging and uploading source code for deployments.
+
+# Ignore node_modules (always built fresh on the server)
+node_modules/
+
+# Ignore local android assets, gradle, and build files
+android/
+
+# Ignore local builds and caches
+dist/
+.vite/
+
+# Ignore environment variables and secrets
+.env
+.env.local
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+.git/

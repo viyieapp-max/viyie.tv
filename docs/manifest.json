@@ -1,0 +1,22 @@
+{
+  "short_name": "VIYIE",
+  "name": "VIYIE - Streaming Animation Movie & TV",
+  "icons": [
+    {
+      "src": "https://cdn.corenexis.com/files/c/4565136720.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://cdn.corenexis.com/files/c/4565136720.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0a0a0a",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#0a0a0a",
+  "description": "Watch your favorite animation movies and TV shows."
+}

@@ -1,0 +1,703 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Japanese3017";
+  src: url("/Japanese 3017.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Garet-Book";
+  src: url("/Garet-Book.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neogen";
+  src: url("/Neogen-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cocogoose";
+  src: url("/Cocogoose-Pro-Semilight-trial.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ThisAppeal";
+  src: url("/ThisAppeal-FreeDemo.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-japanese: "Japanese3017", "Inter", sans-serif;
+  --font-neogen: "Neogen", sans-serif;
+  --font-cocogoose: "Cocogoose", sans-serif;
+  --font-garet: "Garet-Book", sans-serif;
+  --font-appeal: "ThisAppeal", sans-serif;
+  --color-brand-red: #da0000;
+  --color-brand-red-light: #ff1a1a;
+  --color-brand-red-dark: #b30000;
+}
+
+:root {
+  --carousel-padding: 1.25rem;
+  --carousel-horiz-margin: 0px;
+  --carousel-horiz-pad: 0px;
+}
+@media (min-width: 640px) {
+  :root {
+    --carousel-padding: 2rem;
+  }
+}
+@media (min-width: 768px) {
+  :root {
+    --carousel-horiz-margin: -200px;
+    --carousel-horiz-pad: 200px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --carousel-padding: 3rem;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --carousel-padding: 4rem;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 13px !important;
+  }
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  pointer-events: auto;
+}
+
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 5px;
+}
+
+/* Munculkan scroll saat area body di hover, atau saat hover di scrollbar nya langsung */
+body:hover::-webkit-scrollbar-track,
+::-webkit-scrollbar-track:hover {
+  background: rgba(255, 255, 255, 0.03); /* putih redup sekali */
+}
+
+body:hover::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(220, 38, 38, 0.4); /* merah agak redup */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(220, 38, 38, 0.7);
+}
+
+/* Custom thin scrollbar for dropdowns */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(220, 38, 38, 0.3);
+  color: #ffffff;
+}
+
+/* ===== Google Translate cleanup ===== */
+/* Hide top banner & strip injected by Google Translate */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+}
+body {
+  top: 0 !important;
+  position: static !important;
+}
+/* Suppress translation tooltips & highlights */
+.goog-text-highlight {
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+#goog-gt-tt,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+/* Force translated <font> tags to inherit color/font (Google wraps text in <font>) */
+font[style] {
+  background: transparent !important;
+  color: inherit !important;
+  font-family: inherit !important;
+}
+/* Hide hidden helper container */
+#google_translate_element {
+  display: none !important;
+}
+
+/* Gold Shine Animation */
+@keyframes shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(100%);
+  }
+  100% {
+    transform: translateX(100%) translateY(-100%);
+  }
+}
+.animate-shimmer {
+  animation: shimmer 1.8s linear infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+.animate-gold-shine {
+  background: linear-gradient(
+    90deg,
+    #fbbf24 0%,
+    #fef08a 25%,
+    #f59e0b 50%,
+    #fef08a 75%,
+    #fbbf24 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 3s linear infinite;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+}
+.text-gold-glow {
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+  color: #fde68a;
+}
+
+/* Magic Text Sparkles */
+:root {
+  --purple: rgb(123, 31, 162);
+  --violet: rgb(103, 58, 183);
+  --pink: rgb(244, 143, 177);
+  --red-magic: rgb(220, 38, 38);
+  --orange-magic: rgb(249, 115, 22);
+}
+
+@keyframes background-pan {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+
+.magic-text {
+  animation: background-pan 3s linear infinite;
+  background: linear-gradient(
+    to right,
+    var(--red-magic),
+    var(--orange-magic),
+    #facc15,
+    var(--orange-magic),
+    var(--red-magic)
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(90deg);
+  }
+}
+
+.animate-sparkle {
+  animation: sparkle 1500ms ease-in-out forwards;
+}
+
+@keyframes fillProgress {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+.animate-fill-progress {
+  animation: fillProgress 10s linear forwards;
+  transform-origin: left;
+}
+
+@media (max-width: 1023px) {
+  /* Disable heavy blur effects globally on mobile */
+  .backdrop-blur-2xl,
+  .backdrop-blur-xl,
+  .backdrop-blur-md,
+  .backdrop-blur-3xl {
+    --tw-backdrop-blur: blur(0px) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(10, 10, 12, 0.95) !important;
+  }
+
+  /* Disable hover scales and transform shifts (GPU composition lag on mobile) */
+  .group-hover\:scale-110,
+  .hover\:scale-105,
+  .hover\:-translate-y-1,
+  .group-hover\:scale-105,
+  .hover\:scale-[1.01],
+  .hover\:scale-[1.02],
+  .group-hover\:scale-[1.01],
+  .group-hover\:scale-[1.02],
+  .active\:scale-95,
+  .hover\:scale-110,
+  .transition-all,
+  .transition-transform {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Disable parallax image / card scales inside scroll row list on hover */
+  .group:hover img,
+  .group-hover\:scale-110 img,
+  .group:hover .transition-transform,
+  img.transition-transform {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Reduce shadow complexity for lightweight layout layers */
+  .shadow-2xl,
+  .shadow-xl,
+  .shadow-lg {
+    box-shadow: none !important;
+  }
+
+  /* Perf: disable the ambient background glow orbs entirely on mobile */
+  .fixed.inset-0.pointer-events-none > div,
+  [class*="blur-3xl"],
+  [class*="blur-[120px]"],
+  [class*="blur-[80px]"],
+  [class*="blur-[100px]"],
+  [class*="blur-2xl"] {
+    display: none !important;
+    filter: none !important;
+    opacity: 0 !important;
+  }
+
+  /* Disable continuous infinite animations that run in background of mobile views */
+  .animate-spin-slow,
+  .animate-shimmer,
+  .animate-pulse,
+  .animate-bounce {
+    animation: none !important;
+    transform: none !important;
+    background-size: auto !important;
+    background-image: none !important;
+    opacity: 1 !important;
+  }
+
+  .animate-gold-shine {
+    animation: none !important;
+    background: none !important;
+    color: #fbbf24 !important;
+    -webkit-text-fill-color: #fbbf24 !important;
+    text-shadow: none !important;
+  }
+
+  .magic-text {
+    animation: none !important;
+    background: linear-gradient(to right, #dc2626, #f97316) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+}
+
+/* ============================================================
+   MOVIE ROW — horizontal scroll (mobile only ≤ 639px)
+   ============================================================ */
+@media (max-width: 639px) {
+  .movie-row {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1.5rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 0.75rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .movie-row::-webkit-scrollbar {
+    display: none;
+  }
+  .movie-row > div {
+    flex-shrink: 0 !important;
+    width: 104px !important;
+    scroll-snap-align: start;
+  }
+
+  /* Compact grid for search/filter results */
+  .movie-grid-small {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.625rem !important;
+  }
+}
+
+/* ============================================================
+   Carousel Title Fade on Card Hover (Netflix / iQIYI Style)
+   ============================================================ */
+.section-header-title-container {
+  transition:
+    opacity 350ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 350ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.carousel-section-container:-webkit-any(
+    :not(#section-latest):not(#section-recommended):not(#section-populer):not(
+        #section-latest-episodes
+      )
+  ):has(.card-hover-trigger:hover)
+  .section-header-title-container,
+.carousel-section-container:is(
+    :not(#section-latest):not(#section-recommended):not(#section-populer):not(
+        #section-latest-episodes
+      )
+  ):has(.card-hover-trigger:hover)
+  .section-header-title-container {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(-4px) !important;
+}
+
+/* Precise layout fixes requested by user */
+@media (min-width: 1024px) {
+  /* CSS selector 1 */
+  div#root:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > div:nth-of-type(1)
+    > section#section-populer:nth-of-type(4)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1) {
+    margin-left: -36px !important;
+    margin-top: -54px !important;
+  }
+
+  /* CSS selector 2 */
+  div#root:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > div:nth-of-type(1)
+    > section#section-top:nth-of-type(6)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1) {
+    margin-left: -35px !important;
+    margin-top: 0px !important;
+  }
+
+  /* CSS selector 3 */
+  div#root:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > div:nth-of-type(1)
+    > section#section-top:nth-of-type(6)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1) {
+    margin-top: 0px !important;
+  }
+
+  /* User Focused CSS selector 1 override */
+  div#root:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > section:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > div:nth-of-type(1) {
+    margin-left: -39px !important;
+  }
+
+  /* User Focused CSS selector 2 override */
+  div#root:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > div:nth-of-type(1)
+    > section:nth-of-type(8)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1) {
+    margin-top: -53px !important;
+  }
+
+  /* User Focused Custom Target Selection */
+  div#root:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > div:nth-of-type(3)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1) {
+    margin-left: -36px !important;
+  }
+
+  /* All Contents Header layout fix */
+  div#root:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(2)
+    > div:nth-of-type(1)
+    > section#section-all:nth-of-type(8)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1)
+    > div:nth-of-type(1) {
+    margin-left: -56px !important;
+    margin-top: 50px !important;
+  }
+}
+
+/* User Custom Shimmer Loading Animasi */
+.title {
+  width: 40%;
+}
+.link {
+  width: 60%;
+}
+.description {
+  width: 70%;
+}
+.shimmer {
+  padding: 15px;
+  width: 95%;
+  max-width: 500px;
+  height: 120px;
+  margin: 12px auto;
+  background: #110808;
+  border: 1px solid rgba(239, 68, 68, 0.1);
+  border-radius: 12px;
+}
+.shimmer .image-card {
+  height: 90px;
+  width: 90px;
+  float: right;
+  border-radius: 8px;
+}
+.stroke {
+  height: 15px;
+  background: #2a1111;
+  margin-top: 20px;
+  border-radius: 4px;
+}
+
+.wrapper {
+  width: 0px;
+  animation: fullView 0.5s forwards linear;
+}
+
+@keyframes fullView {
+  100% {
+    width: 100%;
+  }
+}
+.animate {
+  animation: shimmer 3s;
+  animation-iteration-count: infinite;
+  background: linear-gradient(to right, #1a0808 5%, #3d1414 25%, #1a0808 35%);
+  background-size: 1000px 100%;
+}
+@keyframes shimmer {
+  from {
+    background-position: -1000px 0;
+  }
+  to {
+    background-position: 1000px 0;
+  }
+}
+
+/* Focus Mode Style Changes for Hero Content Wrapper */
+div#root:nth-of-type(1)
+  > div:nth-of-type(1)
+  > div:nth-of-type(2)
+  > section:nth-of-type(1)
+  > div:nth-of-type(1)
+  > div:nth-of-type(2)
+  > div:nth-of-type(1) {
+  margin-left: -35px;
+  margin-top: -6px;
+  margin-right: 1px;
+  padding-right: 139.6px;
+  padding-left: 11px;
+  padding-top: 13px;
+  padding-bottom: 2px;
+  width: 1360px;
+}
+
+/* ===== ViyiePlayer Fullscreen & Web Fullscreen Fixes (No leaks) ===== */
+body.viyie-body-web-fullscreen {
+  overflow: hidden !important;
+}
+
+body.viyie-body-web-fullscreen [id="video-wrapper"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999999 !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Clear transform and filter contexts on all parent/ancestor containers when web fullscreen is active */
+body.viyie-body-web-fullscreen *:has([id="video-wrapper"]) {
+  transform: none !important;
+  will-change: auto !important;
+  filter: none !important;
+  perspective: none !important;
+}
+
+/* Hide fixed navigation and overlays during web fullscreen */
+body.viyie-body-web-fullscreen nav.fixed,
+body.viyie-body-web-fullscreen .fixed.z-\\[250\\],
+body.viyie-body-web-fullscreen .fixed.z-\\[999\\],
+body.viyie-body-web-fullscreen .fixed.z-\\[90\\],
+body.viyie-body-web-fullscreen .fixed.z-\\[100\\] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
